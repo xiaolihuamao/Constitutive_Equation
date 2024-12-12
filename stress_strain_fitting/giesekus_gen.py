@@ -106,7 +106,7 @@ def gen_giesekus_results(protocols, σ0, tspan, p_giesekus, datatype):
         plt.ylabel("Stress")
         plt.legend()
         plt.show()
-        plt.savefig(f"Stress_vs_Time_protocol_{datatype}{k}.png")
+        plt.savefig(f"pic/Stress_vs_Time_protocol_{datatype}{k}.png")
         plt.close()
 
         # 将数据写入 Excel 文件
@@ -155,7 +155,7 @@ def v32(t): return 0
 def v33(t): return 0
 
 # 初始条件和时间范围
-tspan = (0.0, 24.0,10000) # 起始时间、终末时间、时间点数量
+tspan = (0.0, 24.0,1000) # 起始时间、终末时间、时间点数量
 σ0 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
 # 构建不同实验的协议
@@ -190,5 +190,5 @@ gradv_2 = [v11, v12, v13, v21_2, v22, v23, v31, v32, v33]
 gradv_3 = [v11, v12, v13, v21_3, v22, v23, v31, v32, v33]
 gradv_4 = [v11, v12, v13, v21_4, v22, v23, v31, v32, v33]
 protocols = [gradv_1, gradv_2, gradv_3, gradv_4]
-tspan = (0.0, 24.0,10000) # 起始时间、终末时间、时间点数量
+tspan = (0.0, 24.0,1000) # 起始时间、终末时间、时间点数量
 gen_giesekus_results(protocols, σ0, tspan, p_giesekus, "test")
