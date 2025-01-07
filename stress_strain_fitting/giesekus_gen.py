@@ -95,22 +95,39 @@ def gen_giesekus_results(protocols, σ0, tspan, p_giesekus, datatype):
         γd13_data = strain_rate_data[4]
         γd23_data = strain_rate_data[5]
 
-        # 绘制应力数据
-        plt.scatter(sol.t, σ11_data, label="σ11")
-        plt.scatter(sol.t, σ22_data, label="σ22")
-        #plt.plot(sol.t, σ33_data, label="σ33")
-        plt.scatter(sol.t, σ12_data, label="σ12")
-        #plt.plot(sol.t, σ13_data, label="σ13")
-        #plt.plot(sol.t, σ23_data, label="σ23")
+        # 设置默认字体为Arial，字体大小为24
+        plt.rcParams['font.family'] = 'Arial'
+        plt.rcParams['font.size'] = 24
+
+        # 1. 绘制时间-应力图
+        plt.figure(figsize=(10, 6))
+        plt.plot(sol.t, σ12_data, linewidth=2)
         plt.xlabel("Time (s)")
-        plt.ylabel("Stress")
-        plt.legend()
-        plt.show()
-        plt.savefig(f"pic/Stress_vs_Time_protocol_{datatype}{k}.png")
+        plt.ylabel("$\sigma_{12}$")
+        plt.tight_layout()  # 调整布局
+        plt.savefig(f"pic/Stress_vs_Time_protocol_{datatype}{k}.png", dpi=600)  # 保存图像，dpi=600
+        plt.close()
+
+        # 2. 绘制应变率-应力图
+        plt.figure(figsize=(10, 6))
+        plt.plot(γd12_data, σ12_data, linewidth=2)
+        plt.xlabel(r"$\dot{\gamma}_{12}$")
+        plt.ylabel("$\sigma_{12}$")
+        plt.tight_layout()  # 调整布局
+        plt.savefig(f"pic/Stress_vs_StrainRate_protocol_{datatype}{k}.png", dpi=600)  # 保存图像，dpi=600
+        plt.close()
+
+        # 3. 绘制时间-第一法向应力差图
+        plt.figure(figsize=(10, 6))
+        plt.plot(sol.t, σ11_data - σ22_data, linewidth=2)
+        plt.xlabel("Time (s)")
+        plt.ylabel("N$_1$")
+        plt.tight_layout()  # 调整布局
+        plt.savefig(f"pic/FirstNormalStress_vs_Time_protocol_{datatype}{k}.png", dpi=600)  # 保存图像，dpi=600
         plt.close()
 
         # 将数据写入 Excel 文件
-        sheet = wb.create_sheet(title=f"protocol_{k}")
+    ''' sheet = wb.create_sheet(title=f"protocol_{k}")
         headers = ["Time", "γd11", "γd22", "γd33", "γd12", "γd13", "γd23", "σ11", "σ22", "σ33", "σ12", "σ13", "σ23"]
         for col_idx, header in enumerate(headers, start=1):
             sheet.cell(row=1, column=col_idx, value=header)
@@ -134,7 +151,7 @@ def gen_giesekus_results(protocols, σ0, tspan, p_giesekus, datatype):
     default_sheet = wb["Sheet"]
     wb.remove(default_sheet)
 
-    wb.save(f"data/giesekus_model_{datatype}_data.xlsx")
+    wb.save(f"data/giesekus_model_{datatype}_data.xlsx")'''
 
 
 # 求解 Giesekus 模型的参数
