@@ -2,7 +2,11 @@ import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 import openpyxl
-## 125.216.252.229
+
+
+
+
+
 # 定义吉泽克斯模型微分方程
 def dudt_giesekus(t, u, p, gradv):
     # 解构参数
